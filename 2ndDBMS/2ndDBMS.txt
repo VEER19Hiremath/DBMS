@@ -1,0 +1,47 @@
+Consider the following schema for Order Database: 
+SALESMAN(Salesman_id, Name, City, Commission) 
+CUSTOMER(Customer_id, Cust_Name, City, Grade, Salesman_id) 
+ORDERS(Ord_No, Purchase_Amt, Ord_Date, Customer_id, Salesman_id) 
+
+
+CREATE TABLE CUSTOMER (
+    Customer_id INT PRIMARY KEY,
+    Cust_Name VARCHAR(20),
+    City VARCHAR(20),
+    Grade INT,
+    Salesman_id INT,
+    FOREIGN KEY (Salesman_id) REFERENCES SALESMAN(Salesman_id)
+);
+
+CREATE TABLE ORDERS (
+    Ord_No INT PRIMARY KEY,
+    Purchase_Amt FLOAT,
+    Ord_Date DATE,
+    Customer_id INT,
+    Salesman_id INT,
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Customer_id),
+    FOREIGN KEY (Salesman_id) REFERENCES SALESMAN(Salesman_id)
+);
+
+insert into SALESMAN values(1000, 'Raj', 'Bangalore', 5); 
+insert into SALESMAN values(1001, 'Ravi', 'Belagavi', 6); 
+insert into SALESMAN values(1002, 'Mantesh', 'Hubli', 5.2); 
+insert into SALESMAN values(1003, 'Pavan', 'Mumbai', 2.5); 
+insert into SALESMAN values(1004, 'Deepak', 'Delhi', 3.5); 
+insert into CUSTOMER values(5001, 'Kiran', 'Bangalore', 3, 1000); 
+insert into CUSTOMER values(5002, 'Kapil', 'Bangalore', 4, 1000); 
+insert into CUSTOMER values(5003, 'Harish', 'Bangalore', 3, 1000); 
+insert into CUSTOMER values(5004, 'Salman', 'Belagavi', 3, 1001); 
+insert into CUSTOMER values(5005, 'Gopal', 'Belagavi', 5, 1002); 
+insert into CUSTOMER values(5006, 'Mohan', 'Hubli', 6, 1002); 
+insert into CUSTOMER values(5007, 'Nishant', 'Mumbai', 2, 1003); 
+insert into CUSTOMER values(5008, 'Guru', 'Raipur', 1, 1002); 
+insert into CUSTOMER values(5009, 'Hari', 'Raipur', 1, 1002); 
+insert into CUSTOMER values(5010, 'Jayaraj', 'Jaipur', 1, 1004); 
+insert into ORDERS values(101, 1000, DATE '2017-6-18', 5001, 1000); 
+insert into ORDERS values(102, 3000, DATE '2017-5-4', 5002, 1000); 
+insert into ORDERS values(103, 10000, DATE '2017-7-8', 5004, 1001); 
+insert into ORDERS values(104, 5000, DATE '2017-6-28', 5005, 1002); 
+insert into ORDERS values(105, 5000, DATE '2017-6-28', 5010, 1004); 
+insert into ORDERS values(106, 8000, DATE '2017-6-28', 5007, 1003); 
+insert into ORDERS values(107, 5000, DATE '2017-6-28', 5010, 1004);

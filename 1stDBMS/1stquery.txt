@@ -1,0 +1,46 @@
+1:Retrieve details of all books in the library – id, title, name of publisher, authors, number 
+of copies in each branch, etc. 
+
+Select b.Book_id, b.Title, b.Publisher_Name, a.Author_Name, c.Branch_id, 
+c.No_of_Copies 
+from BOOK b, BOOK_AUTHORS a, BOOK_COPIES c 
+where b.Book_id = a.Book_id and b.Book_id = c.Book_id; 
+
+
+
+
+2: Get the particulars of borrowers who have borrowed more than 3 books, but from Jan 
+2017 to Jun 2017 
+
+Select l.Card_No 
+from BOOK_LENDING l 
+where Date_Out< DATE'2017-6-30' and Date_Out> DATE'2017-1-1' 
+group by l.Card_No 
+having COUNT(l.Card_No) > 3;
+
+
+
+3:  Delete a book in BOOK table. Update the contents of other tables to reflect this data 
+manipulation operation 
+
+delete from BOOK_AUTHORS where Book_id = 106; 
+delete from BOOK_COPIES where Book_id = 106; 
+delete from BOOK_LENDING where Book_id = 106; 
+delete from BOOK where Book_id = 106; 
+
+
+4:  Partition the BOOK table based on year of publication. Demonstrate its working with a 
+simple query. 
+
+create or replace view v_pub as select pub_year from BOOK; 
+select * from v_pub; 
+
+
+5:  Create a view of all books and its number of copies that are currently available in the 
+Library. 
+
+create view V_BK_CP as 
+select distinct b.Book_id, b.Title, c.No_of_Copies 
+from BOOK b, BOOK_AUTHORS a, BOOK_COPIES c 
+where b.Book_id = a.Book_id and b.Book_id = c.Book_id; 
+select *from V_BK_CP;

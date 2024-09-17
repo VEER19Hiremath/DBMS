@@ -1,0 +1,47 @@
+1) Count the customers with grades above Bangalore’s average 
+
+select COUNT(*) 
+from CUSTOMER 
+where Grade > (select AVG(Grade) 
+from CUSTOMER 
+where City = 'Bangalore'); 
+
+
+2) Find the name and numbers of all salesman who had more than one customer 
+
+Select s.Name, s.Salesman_id 
+from CUSTOMER c, SALESMAN s 
+where s.Salesman_id = c.Salesman_id 
+group by s.Name, s.Salesman_id 
+having COUNT(s.Salesman_id)>1; 
+
+
+3) List all the salesman and indicate those who have and don’t have customers intheir cities 
+(Use UNION operation.)
+ 
+(select s.Name, s.Salesman_id 
+from CUSTOMER c, SALESMAN s 
+where s.Salesman_id = c.Salesman_id and s.City = c.City) 
+UNION 
+(select s.Name, s.Salesman_id 
+from CUSTOMER c, SALESMAN s 
+where s.Salesman_id = c.Salesman_id and s.City<>c.City); 
+
+
+4) Create a view that finds the salesman who has the customer with the highestorder of aday.
+ 
+create or replace view v_sal_ord as 
+select o.ord_date, s.salesman_id, s.name 
+from salesman s, orders o 
+where s.salesman_id=o.salesman_id and 
+o.purchase_amt in (select max(purchase_amt) 
+from orders 
+group by ord_date); 
+select * from v_sal_ord; 
+ 
+5) Demonstrate the DELETE operation by removing salesman with id 1000. Allhis orders 
+must also be deleted. 
+
+delete from ORDERS where Salesman_id = 1000; 
+delete from CUSTOMER where Salesman_id = 1000; 
+delete from SALESMAN where Salesman_id = 1000;

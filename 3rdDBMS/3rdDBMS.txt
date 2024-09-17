@@ -1,0 +1,77 @@
+
+ PROGRAM 3
+Consider the schema for Movie Database: 
+ACTOR(Act_id, Act_Name, Act_Gender) 
+DIRECTOR(Dir_id, Dir_Name, Dir_Phone) 
+MOVIES(Mov_id, Mov_Title, Mov_Year, Mov_Lang, Dir_id) 
+MOVIE_CAST(Act_id, Mov_id, Role) 
+RATING(Mov_id, Rev_Stars) 
+
+CREATE TABLE MOVIES (
+    Mov_id INT PRIMARY KEY,
+    Mov_Title VARCHAR(20),
+    Mov_Year INT,
+    Mov_Lang VARCHAR(20),
+    Dir_id INT,
+    FOREIGN KEY (Dir_id) REFERENCES DIRECTOR(Dir_id)
+);
+
+CREATE TABLE MOVIE_CAST (
+    Act_id INT REFERENCES ACTOR(Act_id),
+    Mov_id INT REFERENCES MOVIES(Mov_id),
+    Role VARCHAR(20),
+    PRIMARY KEY (Act_id, Mov_id)
+);
+
+CREATE TABLE RATING (
+    Mov_id INT PRIMARY KEY,
+    Rev_Stars FLOAT,
+    FOREIGN KEY (Mov_id) REFERENCES MOVIES(Mov_id)
+);
+
+insert into ACTOR values(101, 'Brad Pitt', 'male'); 
+insert into ACTOR values(102, 'Leonardo Dicaprio', 'male'); 
+insert into ACTOR values(103, 'Charlie Chaplin', 'male'); 
+insert into ACTOR values(104, 'Angelina Jolie', 'female'); 
+insert into ACTOR values(105, 'Kristen Stewart', 'female'); 
+insert into ACTOR values(106, 'Natalie Portman', 'female'); 
+insert into DIRECTOR values(201, 'Christopher Nolan', 9742121425); 
+insert into DIRECTOR values(202, 'David Fincher', 9442145225); 
+insert into DIRECTOR values(203, 'Hitchcock', 9721802342); 
+insert into DIRECTOR values(204, 'Steven Spielberg', 7121254578); 
+insert into DIRECTOR values(205, 'Quentin Tarantino', 8842247725); 
+insert into MOVIES values(301, 'M1', 1999, 'Eng', 201); 
+insert into MOVIES values(302, 'M2', 2016, 'Eng', 201); 
+insert into MOVIES values(303, 'M3', 2017, 'Eng', 202); 
+insert into MOVIES values(304, 'M4', 2010, 'Eng', 202); 
+insert into MOVIES values(305, 'M5', 2016, 'Eng', 202); 
+insert into MOVIES values(306, 'M6', 1996, 'Eng', 203); 
+insert into MOVIES values(307, 'M7', 1997, 'Eng', 203); 
+insert into MOVIES values(308, 'M8', 2012, 'Eng', 204); 
+insert into MOVIES values(309, 'M9', 2016, 'Eng', 204); 
+insert into MOVIES values(310, 'M10', 2017, 'Eng', 205); 
+insert into MOVIES values(311, 'M11', 2015, 'Eng', 205); 
+insert into MOVIE_CAST values(101,301,'M'); 
+insert into MOVIE_CAST values(101,302,'M'); 
+insert into MOVIE_CAST values(105,302,'M'); 
+insert into MOVIE_CAST values(103,305,'M'); 
+insert into MOVIE_CAST values(103,306,'M'); 
+insert into MOVIE_CAST values(102,303,'M'); 
+insert into MOVIE_CAST values(104,303,'S'); 
+insert into MOVIE_CAST values(101,304,'M'); 
+insert into MOVIE_CAST values(106,304,'S'); 
+insert into MOVIE_CAST values(101,307,'M'); 
+insert into MOVIE_CAST values(103,308,'M'); 
+insert into MOVIE_CAST values(102,309,'M'); 
+insert into MOVIE_CAST values(101,311,'M'); 
+insert into RATING values(301, 3.5); 
+insert into RATING values(302, 0.5); 
+insert into RATING values(303, 4.5); 
+insert into RATING values(304, 0.5); 
+insert into RATING values(305, 2.5); 
+insert into RATING values(306, 3.5); 
+insert into RATING values(307, 2.0); 
+insert into RATING values(308, 3.5); 
+insert into RATING values(309, 4.5); 
+insert into RATING values(310, 4.0); 
+insert into RATING values(311, 4.5); 

@@ -1,0 +1,71 @@
+Consider the schema for Company Database: 
+EMPLOYEE(SSN, Name, Address, Sex, Salary, SuperSSN, DNo) 
+DEPARTMENT(DNo, DName, MgrSSN, MgrStartDate) 
+DLOCATION(DNo,DLoc) 
+PROJECT(PNo, PName, PLocation, DNo) 
+WORKS_ON(SSN, PNo, Hours) 
+--
+
+CREATE TABLE `class` (
+  `USN` char(10) NOT NULL,
+  `SSID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+INSERT INTO `class` (`USN`, `SSID`) VALUES
+('2BU21CS001', 100),
+('2BU21CS002', 102),
+('2BU21CS004', 102),
+('2BU21CS005', 102);
+
+
+CREATE TABLE `semsection` (
+  `SSID` int(11) NOT NULL,
+  `SEM` int(11) NOT NULL,
+  `SEC` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+INSERT INTO `semsection` (`SSID`, `SEM`, `SEC`) VALUES
+(100, 3, 'A'),
+(101, 5, 'B'),
+(102, 4, 'A'),
+(103, 2, 'A'),
+(104, 4, 'B');
+
+-- --------------------------------------------------------
+
+
+CREATE TABLE `student` (
+  `USN` char(10) NOT NULL,
+  `SName` varchar(25) NOT NULL,
+  `Address` varchar(30) NOT NULL,
+  `Phone` char(10) NOT NULL,
+  `gender` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+INSERT INTO `student` (`USN`, `SName`, `Address`, `Phone`, `gender`) VALUES
+('2BU21CS001', 'Ajay', 'Tilakwadi', '98884332', 'M'),
+('2BU21CS002', 'Kiran', 'Tilakwadi', '98884332', 'M'),
+('2BU21CS003', 'Shobha', 'Hindwadi', '98884332', 'F'),
+('2BU21CS004', 'Rahul', 'Mahantesh Nagar', '98884332', 'M'),
+('2BU21CS005', 'Praveen', 'Mahantesh Nagar', '98884332', 'M');
+
+
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`USN`,`SSID`),
+  ADD KEY `SSID` (`SSID`);
+
+
+ALTER TABLE `semsection`
+  ADD PRIMARY KEY (`SSID`);
+
+
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`USN`);
+
+
+ALTER TABLE `class`
+  ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`USN`) REFERENCES `student` (`USN`) ON DELETE CASCADE ON UPDATE CASCADE;

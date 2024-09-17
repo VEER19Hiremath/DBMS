@@ -1,0 +1,68 @@
+Program – 1 
+Consider the following schema for a Library Database: 
+BOOK(Book_id, Title, Publisher_Name, Pub_Year) 
+BOOK_AUTHORS(Book_id, Author_Name) 
+PUBLISHER(Name, Address, Phone) 
+BOOK_COPIES(Book_id,Branch_id, No_of_Copies) 
+BOOK_LENDING(Book_id, Branch_id, Card_No, Date_Out, Due_Date) 
+LIBRARY_BRANCH(Branch_id, Branch_Name, Address)
+
+
+CREATE TABLE PUBLISHER(Name VARCHAR(10) PRIMARY KEY, Address 
+VARCHAR(20), Phone int); 
+CREATE TABLE BOOK(Book_id INT PRIMARY KEY, Title VARCHAR(10), 
+Publisher_Name VARCHAR(10) references PUBLISHER(Name), Pub_Year INT ); 
+CREATE TABLE BOOK_AUTHORS(Book_id INT references BOOK(Book_id), 
+Author_Name VARCHAR(10), primary key(Book_id,Author_Name)); 
+CREATE TABLE LIBRARY_BRANCH(Branch_id int PRIMARY KEY, Branch_Name 
+VARCHAR(10), Address VARCHAR(20)); 
+CREATE TABLE BOOK_COPIES(Book_id INT references BOOK(Book_id), Branch_id 
+int references LIBRARY_BRANCH(Branch_id), No_of_Copies int); 
+CREATE TABLE BOOK_LENDING(Book_id INT references BOOK(Book_id), 
+Branch_id int references LIBRARY_BRANCH(Branch_id), Card_No int, Date_Out 
+DATE, Due_Date DATE, primary key(Book_id,Branch_id,Card_No)); 
+insert into PUBLISHER values('Tata', 'Bangalore India', 7845784512); 
+insert into PUBLISHER values('Pearson', 'Mumbai India', 9945712025); 
+insert into PUBLISHER values('Springer', 'Delhi India', 8584478512); 
+insert into PUBLISHER values('IEEE', 'Kolkata India', 8456124521); 
+insert into PUBLISHER values('ACM', 'Jaipur India', 7845124785); 
+insert into BOOK values(101, 'DBMS', 'Pearson', 2010); 
+insert into BOOK values(102, 'CN', 'IEEE', 2010); 
+insert into BOOK values(103, 'ADA', 'Springer', 2010); 
+insert into BOOK values(104, 'Java', 'Pearson', 2011); 
+insert into BOOK values(105, 'CG', 'Tata', 2010); 
+insert into BOOK values(106, 'ADE', 'IEEE', 2015); 
+insert into BOOK values(107, 'SS', 'Tata', 2001); 
+insert into BOOK_AUTHORS values(101, 'Navathe'); 
+insert into BOOK_AUTHORS values(101, 'Ramez'); 
+insert into BOOK_AUTHORS values(102, 'Forouzan'); 
+insert into BOOK_AUTHORS values(103, 'Levitin'); 
+
+
+insert into BOOK_AUTHORS values(104, 'Herbert'); 
+insert into BOOK_AUTHORS values(105, 'Edward'); 
+insert into BOOK_AUTHORS values(106, 'Lens'); 
+insert into BOOK_AUTHORS values(107, 'Leland'); 
+insert into LIBRARY_BRANCH values(1,'CS','Dept CSE'); 
+insert into LIBRARY_BRANCH values(2,'EE','Dept EEE'); 
+insert into LIBRARY_BRANCH values(3,'EC','Dept ECE'); 
+insert into LIBRARY_BRANCH values(4,'CV','Dept CIC'); 
+insert into LIBRARY_BRANCH values(5,'ME','Dept MEC'); 
+insert into BOOK_COPIES values(101, 1, 10); 
+insert into BOOK_COPIES values(106, 2, 15); 
+insert into BOOK_COPIES values(107, 3, 5); 
+insert into BOOK_COPIES values(102, 1, 5); 
+insert into BOOK_COPIES values(103, 1, 10); 
+insert into BOOK_COPIES values(104, 1, 20); 
+insert into BOOK_COPIES values(105, 1, 5); 
+insert into BOOK_LENDING values(101, 1, 501, DATE '2017-8-20', DATE '2017-9-20'); 
+insert into BOOK_LENDING values(102, 1, 502, DATE '2017-8-18', DATE '2017-9-18'); 
+insert into BOOK_LENDING values(103, 1, 503, DATE '2017-7-20', DATE '2017-8-20'); 
+insert into BOOK_LENDING values(101, 1, 504, DATE '2017-1-2', DATE '2017-2-2'); 
+insert into BOOK_LENDING values(104, 1, 504, DATE '2017-2-20', DATE '2017-3-20'); 
+insert into BOOK_LENDING values(106, 1, 504, DATE '2017-3-17', DATE '2017-4-17'); 
+insert into BOOK_LENDING values(102, 1, 504, DATE '2017-4-21', DATE '2017-5-21'); 
+insert into BOOK_LENDING values(103, 1, 504, DATE '2017-6-2', DATE '2017-6-2'); 
+insert into BOOK_LENDING values(105, 2, 505, DATE '2017-1-11', DATE '2017-2-11'); 
+insert into BOOK_LENDING values(106, 2, 505, DATE '2017-9-11', DATE '2017-10-11'); 
+insert into BOOK_LENDING values(107, 3, 506, DATE '2017-10-16', DATE '2017-11-16');
